@@ -13,7 +13,7 @@ import { PRODOCT_DETAILS_FAIL,
     PRODOCT_CREATE_FAIL,
     PRODOCT_CREATE_RESET
  } 
-from "../constants/productConstant"
+from "../constants/productConstants"
 
 export const productListReducer = (state={products:[],loading:true},action)=>{
 switch (action.type){

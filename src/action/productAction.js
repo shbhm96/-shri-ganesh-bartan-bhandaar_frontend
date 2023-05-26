@@ -10,7 +10,7 @@ import { PRODOCT_LIST_FAIL,
     PRODOCT_CREATE_REQUEST,
     PRODOCT_CREATE_SUCCESS,
     PRODOCT_CREATE_FAIL
- } from '../constants/productConstant'
+ } from '../constants/productConstants'
 import backendApi from '../api/backend'
 
 const listProducts = () =>async(dispatch)=>{

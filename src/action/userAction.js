@@ -27,8 +27,8 @@ import {
     from "../constants/userConstant"
 import backendApi from "../api/backend.js"
 import { MY_ORDER_LIST_RESET } from "../constants/orderConstants"
-import { PRODOCT_DETAILS_RESET, PRODOCT_LIST_RESET } from "../constants/productConstant"
-import { CART_RESET } from "../constants/cartConstant"
+import { PRODOCT_DETAILS_RESET, PRODOCT_LIST_RESET } from "../constants/productConstants"
+import { CART_RESET } from "../constants/cartConstants"
 
 
 export const loginUser =(email,password)=>async(dispatch)=>{
