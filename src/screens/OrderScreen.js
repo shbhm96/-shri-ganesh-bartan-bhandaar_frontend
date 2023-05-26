@@ -8,9 +8,10 @@ import Loader from '../components/Loader';
 import { getOrderDetails } from '../action/orderAction';
 
 const OrderScreen = () => {
-
-    const orderId = useParams().id
+    const params = useParams()
+    const orderId = params.id
     const dispatch = useDispatch()
+    
     console.log("id",orderId)
 
     const {order,loading,error} = useSelector(state=>state.orderDetails)
@@ -27,11 +28,8 @@ const OrderScreen = () => {
     <>
     {loading && <Loader/>}
     {error && <Message variant="danger">{error}</Message> }
-    <>
-    {console.log("orderss",order)}
-        <h1>Order {order._id}</h1>
-        
-        <Row>
+        <h1>Order {order && order._id}</h1>        
+        {order && <Row>
         <Col md={8}>
             <ListGroup varinat="flush">
                 <ListGroup.Item>
@@ -123,8 +121,7 @@ const OrderScreen = () => {
             </Card>
         </Col>
     </Row>
-
-        </>
+}
     </>
   )
 }

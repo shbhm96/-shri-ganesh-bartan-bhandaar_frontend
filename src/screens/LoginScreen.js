@@ -23,7 +23,7 @@ const LoginScreen = () => {
 
   useEffect(()=>{
     if(userInfo){
-        history("/")
+        history("/cart")
     }
   },[userInfo,history])
 

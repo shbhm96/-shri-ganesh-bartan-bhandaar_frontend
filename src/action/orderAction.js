@@ -10,7 +10,7 @@ export const createOrder = (order) =>async(dispatch,getState)=>{
         })
 
         const {userLogin : { userInfo }} = getState()
-
+console.log("order",order)
 
         const config = {
             headers:{
@@ -34,7 +34,7 @@ export const createOrder = (order) =>async(dispatch,getState)=>{
     }
 }
 export const getOrderDetails = (id) =>async(dispatch,getState)=>{
-    console.log("Id",id)
+    console.log("action ->Id",id)
     
     try{
         dispatch({
@@ -50,7 +50,7 @@ export const getOrderDetails = (id) =>async(dispatch,getState)=>{
                 Authorization:`Bearer ${userInfo.token}`
             }
         }
-        const {data}= await backendApi.get(`/orders/${id}`,config)
+        const {data}= await backendApi.get(`/orders/getOrder/${id}`,config)
         console.log(data)
         dispatch({
             type:ORDER_DETAILS_SUCCESS,

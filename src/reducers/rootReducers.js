@@ -29,8 +29,6 @@ const shippingAddressFromStorage = localStorage.getItem("shippingAddress") ? JSO
     
 const userInfoFromLocalStorage = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")):null
 
-
-
 const initialState = {
     productList:{products:[]},
     productDetails:{product:{}},

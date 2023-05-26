@@ -36,7 +36,7 @@ try{
         type:PRODOCT_DETAILS_SUCCESS,
         payload: data
     })
-    
+    console.log(data)
     localStorage.setItem("productDetails",JSON.stringify(data))
     
 }catch(err){
