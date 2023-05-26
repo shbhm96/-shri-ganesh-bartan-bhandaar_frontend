@@ -40,8 +40,7 @@ function App() {
           <Route path="/payment" element={<PaymentScreen/>} exact/>
           <Route path="/placeorder" element={<PlaceOrderScreen/>} exact/>
           <Route path="/register" element={<RegisterScreen/>} exact/>
-          <Route path="/profile" element={<ProfileScreen/>} exact/>       
-          
+          <Route path="/profile" element={<ProfileScreen/>} exact/>      
           <Route path="/product/:id" element={<ProductScreen/> }/>
           <Route path="/cart/:id?" element={<CartScreen/>} exact/>
           <Route path="*" element={<PageNotFound/>} />

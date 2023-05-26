@@ -31,7 +31,8 @@ try{
 const productDetails = (id) =>async(dispatch)=>{
 try{
     dispatch({type:PRODOCT_DETAILS_REQUEST})
-    const {data} = await backendApi.get(`/products/${id}`)
+    const {data} = await backendApi.get(`/products/getProduct/${id}`)
+    console.log("data",data)
     dispatch({
         type:PRODOCT_DETAILS_SUCCESS,
         payload: data

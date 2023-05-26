@@ -46,33 +46,33 @@ const Header = () => {
           {userInfo ? (
             <NavDropdown title={userInfo.name} id="username">
               <NavDropdown.Item onClick={profileHandler}>
-                <i class="fa fa-user p-1" aria-hidden="true"></i>
+                <i className="fa fa-user p-1" aria-hidden="true"></i>
                       Profile
               </NavDropdown.Item>
               
               <NavDropdown.Item onClick={logoutHandler}>
-              <i class="fa fa-sign-out p-1" aria-hidden="true"></i>
+              <i className="fa fa-sign-out p-1" aria-hidden="true"></i>
                 Logout
               </NavDropdown.Item>
             </NavDropdown>
           ):(
             <Link to="/login">
-            <i class="fa fa-sign-in" aria-hidden="true"></i>Sign In
-        </Link>
+            <i className="fa fa-sign-in" aria-hidden="true"></i>Sign In
+            </Link>
           )}
           {userInfo && userInfo.isAdmin && (
             <NavDropdown title="admin" id="adminMenu">
             <NavDropdown.Item onClick={adminShowAllUser}>
-              <i class="fa fa-user p-1" aria-hidden="true"></i>
+              <i className="fa fa-user p-1" aria-hidden="true"></i>
                     Users
             </NavDropdown.Item>
             
             <NavDropdown.Item onClick={adminShowAllProducts}>
-              <i class="fa fa-user p-1" aria-hidden="true"></i>
+              <i className="fa fa-user p-1" aria-hidden="true"></i>
                     Products
             </NavDropdown.Item>
             <NavDropdown.Item onClick={adminShowAllOrders}>
-              <i class="fa fa-user p-1" aria-hidden="true"></i>
+              <i className="fa fa-user p-1" aria-hidden="true"></i>
                     Orders
             </NavDropdown.Item>
           </NavDropdown>

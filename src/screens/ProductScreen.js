@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Button, Card, Col, Form, Image, ListGroup, Row } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import { useDispatch, useSelector } from 'react-redux';
+import Loader from '../components/Loader.js';
+import Message from '../components/Message.js';
 
 const ProductScreen = ({history}) => {
     const [qty,setQty] = useState(1)
@@ -11,7 +13,8 @@ const ProductScreen = ({history}) => {
 
     const dispatch = useDispatch()
     const params = useParams()
-    const {product}=useSelector(state=>state.productDetails)
+    const {loading,error,product}=useSelector(state=>state.productDetails)
+    console.log("product",product)
 
     const addToCartHandler = () => {
         navigate(`/cart/${params.id}?qty=${qty}`)
@@ -19,19 +22,22 @@ const ProductScreen = ({history}) => {
 
     useEffect(()=>{
         if(product){
-        dispatch(productDetails(params.id))
+            console.log("EFfect")
+            dispatch(productDetails(params.id))            
         }
     },[dispatch,params,product])
 
 
-    
   return (
     <>
+    
         <Link className='btn btn-dark my-3' to="/">Go Back</Link>
-        
+        {loading && <Loader/>}
+        {error && <Message variant="danger">{error}</Message>}
+        {product &&
         <Row>
             <Col md={6}>
-                <Image src={`./assets/${product.image}`} alt={product.name} fluid/>
+                <Image src={product && product.image} alt={product.name} fluid/>
             </Col> 
             <Col md={3}>
                 <ListGroup variant='flush'>
@@ -101,6 +107,8 @@ const ProductScreen = ({history}) => {
                 </Card>
             </Col>
         </Row>
+}
+        
     </>
   )
 }
