@@ -24,7 +24,7 @@ const RegisterScreen = () => {
 
   useEffect(()=>{
     if(userInfo){
-        history(redirect)
+        history('/cart')
     }
   },[userInfo,history,redirect])
 

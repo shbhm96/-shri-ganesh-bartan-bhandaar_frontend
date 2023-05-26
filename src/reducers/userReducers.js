@@ -50,11 +50,7 @@ export const userRegisterReducer = (state={},action)=>{
         case USER_REGISTER_SUCCESS:
             return {loading:false,userInfo:action.payload}
         case USER_REGISTER_FAIL:
-            return {loading:false,error:action.payload}
-        case USER_LOGOUT:
-            return {
-                userInfo:null
-            }        
+            return {loading:false,error:action.payload}    
         default:
             return state
     }
@@ -67,9 +63,7 @@ export const userDetailsReducer = (state={user:{}},action)=>{
         case USER_DETAILS_SUCCESS:
             return {...state,loading:false,user:action.payload}
         case USER_DETAILS_FAIL:
-            return {loading:false,error:action.payload}    
-        
-            
+            return {loading:false,error:action.payload}        
         default:
             return state
     }
