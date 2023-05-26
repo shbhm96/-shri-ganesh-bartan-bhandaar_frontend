@@ -35,7 +35,7 @@ const Header = () => {
      <Navbar bg="dark" variant='dark' expand="lg" collapseOnSelect>     
      <Container>
       <Link to="/">
-        <Navbar.Brand href="/">Proshop</Navbar.Brand>
+        <Navbar.Brand href="/">Shri Ganesh Bartan Bhandaar</Navbar.Brand>
       </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

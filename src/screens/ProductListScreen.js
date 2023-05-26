@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { deleteProduct, listProducts } from '../action/productAction';
-import { PRODOCT_CREATE_RESET } from '../constants/productConstant';
+import { PRODOCT_CREATE_RESET } from '../constants/productConstants';
 
 const ProductiListScreen = ({getState}) => {
     const dispatch = useDispatch()

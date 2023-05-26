@@ -1,24 +1,57 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router,Route, Routes} from "react-router-dom";
+import Header from './components/Header';
+import { Container } from 'react-bootstrap';
+
+import HomeScreen from "./screens/HomeScreen";
+import LoginScreen from './screens/LoginScreen';
+import ProductScreen from "./screens/ProductScreen";
+import CartScreen from "./screens/CartScreen";
+import PageNotFound from "./components/PageNotFound";
+import TestElement from "./components/TestElement";
+import RegisterScreen from "./screens/RegisterScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import ShippingScreen from "./screens/ShippingScreen";
+import PaymentScreen from "./screens/PaymentScreen";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import OrderScreen from "./screens/OrderScreen";
+import UserListScreen from "./screens/UserListScreen";
+import UserEditScreen from "./screens/UserEditScreen";
+import ProductiListScreen from "./screens/ProductListScreen";
+import ProductEditScreen from "./screens/ProductEditScreen";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Header/>
+      <main className='py-3'>
+        <Container>
+          <Routes>
+          <Route path="/" element={<HomeScreen/>} exact/>
+
+            <Route path="/login" element={<LoginScreen/>} exact />
+            <Route path="/admin/users" element={<UserListScreen/>} exact/>
+            <Route path="/admin/products" element={<ProductiListScreen/>} exact/>
+          <Route path="/admin/product/:id/edit" element={<ProductiListScreen/>} exact/>
+          <Route path="/admin/product/createProduct" element={<ProductEditScreen/>}exact/>
+          <Route path="/order/:id" element={<OrderScreen/>} exact/>
+          <Route path="/shipping" element={<ShippingScreen/>} exact/>
+          <Route path="/payment" element={<PaymentScreen/>} exact/>
+          <Route path="/placeorder" element={<PlaceOrderScreen/>} exact/>
+          <Route path="/register" element={<RegisterScreen/>} exact/>
+          <Route path="/profile" element={<ProfileScreen/>} exact/>       
+          
+          <Route path="/product/:id" element={<ProductScreen/> }/>
+          <Route path="/cart/:id?" element={<CartScreen/>} exact/>
+          <Route path="*" element={<PageNotFound/>} />
+          <Route path="/test" element={<TestElement/>} exact/>
+          <Route path="/admin/user/:id/edit" element={<UserEditScreen/>}/>
+            
+          </Routes>
+        </Container>
+      </main>
+    </Router>
   );
 }
 
