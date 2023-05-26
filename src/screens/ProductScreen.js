@@ -13,19 +13,17 @@ const ProductScreen = ({history}) => {
 
     const dispatch = useDispatch()
     const params = useParams()
+    
+    const productId = params.id
     const {loading,error,product}=useSelector(state=>state.productDetails)
-    console.log("product",product)
 
     const addToCartHandler = () => {
         navigate(`/cart/${params.id}?qty=${qty}`)
     }
 
     useEffect(()=>{
-        if(product){
-            console.log("EFfect")
-            dispatch(productDetails(params.id))            
-        }
-    },[dispatch,params,product])
+            dispatch(productDetails(productId))            
+    },[dispatch,productId])
 
 
   return (
