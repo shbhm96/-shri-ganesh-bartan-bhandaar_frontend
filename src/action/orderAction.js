@@ -10,7 +10,7 @@ export const createOrder = (order) =>async(dispatch,getState)=>{
         })
 
         const {userLogin : { userInfo }} = getState()
-console.log("order",order)
+        console.log("order-->Action",order)
 
         const config = {
             headers:{
@@ -18,13 +18,14 @@ console.log("order",order)
                 Authorization:`Bearer ${userInfo.token}`
             }
         }
-        console.log(config)
         const {data}= await backendApi.post(`/orders`,order,config)
 
         dispatch({
             type:ORDER_CREATE_SUCCESS,
             payload:data,
         })
+        localStorage.removeItem("cartItems")
+        localStorage.removeItem("paymentMethod")
         
            
     }catch(err){

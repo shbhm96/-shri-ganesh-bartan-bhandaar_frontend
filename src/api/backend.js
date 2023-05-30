@@ -1,6 +1,6 @@
 import axios from "axios"
 
-
-const backendApi = axios.create({baseURL:`http://127.0.0.1:5000/api`})
+const BACKEND_API = process.env.REACT_APP_BACKEND_SERVER_API
+const backendApi = axios.create({baseURL:`${BACKEND_API}`})
 
 export default backendApi;

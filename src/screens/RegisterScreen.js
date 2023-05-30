@@ -11,6 +11,7 @@ import Loader from '../components/Loader';
 const RegisterScreen = () => {
   const [name,setName] = useState('');
   const [email,setEmail] = useState('');
+  const [mobile,setMobile] = useState(0)
   const [password,setPassword]= useState('')
   const [confPass,setConfPass]= useState('')
   const [msg,setMsg]= useState(null)
@@ -30,10 +31,14 @@ const RegisterScreen = () => {
 
   const submitHandler=(e)=>{
     e.preventDefault()
+    if(mobile.toString().length !==10){
+      setMsg("Invalid Mobile No.")
+    }
     if(password !== confPass){
       setMsg("Password Do not match")
     }else{
       dispatch(registerUser(name,email,password))
+      setMobile(0)
       setEmail('')
       setPassword('')
       setName('')
@@ -55,6 +60,10 @@ const RegisterScreen = () => {
         <Form.Group controlId='emailId'>
         <Form.Label>Email Address</Form.Label>
         <Form.Control placeholder='enter your email address' type='email' onChange={(e)=>setEmail(e.target.value)} value={email}/ >
+        </Form.Group>
+        <Form.Group controlId='Mobile'>
+        <Form.Label>Mobile No.</Form.Label>
+        <Form.Control placeholder='enter your Mobile No' type='text' onChange={(e)=>{setMobile(e.target.value) || setMsg('')}} value={mobile}/ >       
         </Form.Group>
         <Form.Group controlId='password'>
         <Form.Label>Password</Form.Label>

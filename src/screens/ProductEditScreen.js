@@ -9,7 +9,8 @@ import Loader from '../components/Loader';
 import {  productDetails } from '../action/productAction';
 
 const ProductEditScreen = () => {
-  const productId =useParams().id
+  const params = useParams()
+  const productId = params.id
   const history = useNavigate()
 
   const [name,setName] = useState('');
@@ -20,34 +21,29 @@ const ProductEditScreen = () => {
   const [countInStock,setCountInStock] = useState(0);
   const [description,setDescription] = useState('')
   
-  
-
   const dispatch = useDispatch()
 
-  const {loading,error,product} = useSelector(state=>state.productDetails)
+  //const {loading,error,product} = useSelector(state=>state.productDetails)
 
 
-  useEffect(()=>{
+  // useEffect(()=>{
+  //      if(product){  
+  //        if(!product.name){
+  //         console.log("Hello")
+  //           dispatch(productDetails(product.Id))
+  //       }else{
+  //         console.log("Hello121")
+  //           setName(product.name)
+  //           setPrice(product.price)
+  //           setImage(product.image)
+  //           setCategory(product.category)
+  //           setBrand(product.brand)
+  //           setCountInStock(product.countInStock)
+  //           setDescription(product.description)
 
-       if(product){
-  
-         if(!product.name){
-          console.log("Hello")
-            dispatch(productDetails(product.Id))
-
-        }else{
-          console.log("Hello121")
-            setName(product.name)
-            setPrice(product.price)
-            setImage(product.image)
-            setCategory(product.category)
-            setBrand(product.brand)
-            setCountInStock(product.countInStock)
-            setDescription(product.description)
-
-        }          
-    }
-  },[product,dispatch,productId,history])
+  //       }          
+  //   }
+  // },[product,dispatch,productId,history])
 
   const submitHandler=(e)=>{
     e.preventDefault()
@@ -62,7 +58,7 @@ const ProductEditScreen = () => {
     
     <FormContainer>
       <h1>Edit Products</h1>
-      {loading ? <Loader/> : error ?<Message variant="danger">{error}</Message>:(
+      {/* {loading ? <Loader/> : error ?<Message variant="danger">{error}</Message>:( */}
       <Form onSubmit={submitHandler} >
       <Form.Group controlId='name'>
         <Form.Label>Name</Form.Label>
@@ -100,7 +96,7 @@ const ProductEditScreen = () => {
           Update
         </Button>
       </Form>
-      )}
+
     </FormContainer>  
     </>
   )

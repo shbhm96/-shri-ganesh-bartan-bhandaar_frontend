@@ -38,7 +38,7 @@ const ProductiListScreen = ({getState}) => {
     }
     const createProductHandler= (product) =>{
         console.log("Create Product")
-        history("/admin/product/createProduct")
+        history("/admin/create_product")
     }
 
 

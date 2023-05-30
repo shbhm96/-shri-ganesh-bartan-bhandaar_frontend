@@ -34,7 +34,7 @@ const OrderScreen = () => {
             <ListGroup varinat="flush">
                 <ListGroup.Item>
                     <h2>Shipping</h2>
-                    <p><strong>Name</strong>{order.user.name}</p>
+                    <p><strong>Name: </strong>{order.user.name}</p>
                     <p><a href={`mailto:${order.user.email}`}>
                         <i class="fa fa-envelope" aria-hidden="true"></i>
                         {order.user.email}
