@@ -84,7 +84,7 @@ try{
     const {userLogin : { userInfo }} = getState()
 
     const config = {
-        headers:{
+        headers:{            
             Authorization:`Bearer ${userInfo.token}`
         }
     }
