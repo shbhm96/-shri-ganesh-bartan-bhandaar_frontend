@@ -1,22 +1,23 @@
 import React from 'react'
-
+import {FaStar,FaStarHalfAlt,FaRegStar} from "react-icons/fa"
 const Rating = ({value,text}) => {
   return (  
     <div className='rating'>
+        
         <span>
-            <i className={value >= 1 ? 'fas fa-star': value >= 0.5 ? 'fas fa-star-half-alt':'far fa-star'}></i>
+            {value >= 1 ?<FaStar/> : value >= 0.5 ? <FaStarHalfAlt/> : <FaStar/>}
         </span>
         <span>
-            <i className={value >= 2 ? 'fas fa-star': value >= 1.5 ? 'fas fa-star-half-alt':'far fa-star'}></i>
+            {value >= 2 ?<FaStar/> : value >= 1.5 ? <FaStarHalfAlt/> : <FaStar/>}
         </span>
         <span>
-            <i className={value >= 3 ? 'fas fa-star': value >= 2.5 ? 'fas fa-star-half-alt':'far fa-star'}></i>
+            {value >= 3 ?<FaStar/> : value >= 2.5 ? <FaStarHalfAlt/> : <FaStar/>}
         </span>
         <span>
-            <i className={value >= 4 ? 'fas fa-star': value >= 3.5 ? 'fas fa-star-half-alt':'far fa-star'}></i>
+            {value >= 4 ?<FaStar/> : value >= 3.5 ? <FaStarHalfAlt/> : <FaStar/>}
         </span>
         <span>
-            <i className={value >= 5 ? 'fas fa-star': value >= 4.5 ? 'fas fa-star-half-alt':'far fa-star'}></i>
+            {value >= 5 ?<FaStar/> : value >= 4.5 ? <FaStarHalfAlt/> : <FaStar/>}
         </span>
         <span>
             {text && text}
