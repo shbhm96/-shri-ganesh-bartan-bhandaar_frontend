@@ -36,9 +36,8 @@ const ProductiListScreen = ({getState}) => {
             dispatch(deleteProduct(id))
         }
     }
-    const createProductHandler= (product) =>{
-        console.log("Create Product")
-        history("/admin/create_product")
+    const createProductHandler= (product) =>{ 
+        history("/admin/product/create")
     }
 
 

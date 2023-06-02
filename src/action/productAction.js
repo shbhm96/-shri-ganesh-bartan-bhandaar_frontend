@@ -74,8 +74,7 @@ try{
 }
 }
 
-const createProduct = () =>async(dispatch,getState)=>{    
-console.log("Create Product")
+const createProduct = (formData) =>async(dispatch,getState)=>{    
 try{
     dispatch({
         type:PRODOCT_CREATE_REQUEST,
@@ -84,13 +83,12 @@ try{
 
     const {userLogin : { userInfo }} = getState()
 
-
     const config = {
         headers:{
             Authorization:`Bearer ${userInfo.token}`
         }
     }
-    const {data} = await backendApi.get(`/admin/createProduct`, {}, config)
+    const {data} = await backendApi.get(`/admin/product/create`,{}, config)
 
     dispatch({
         type:PRODOCT_CREATE_SUCCESS,

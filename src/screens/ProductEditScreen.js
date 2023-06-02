@@ -1,103 +1,91 @@
-import React, { useEffect, useState } from 'react'
-
-import { Button, Form } from 'react-bootstrap';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import FormContainer from '../components/FormContainer';
-import { useDispatch, useSelector } from 'react-redux';
-import Message from '../components/Message';
-import Loader from '../components/Loader';
-import {  productDetails } from '../action/productAction';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import FormContainer from '../components/FormContainer'
+import { Button, Form } from 'react-bootstrap'
+import Message from '../components/Message'
+import { useDispatch } from 'react-redux'
+import { createProduct } from '../action/productAction'
 
 const ProductEditScreen = () => {
-  const params = useParams()
-  const productId = params.id
-  const history = useNavigate()
-
-  const [name,setName] = useState('');
-  const [price,setPrice] = useState(0);
-  const [image,setImage] = useState('');
-  const [category,setCategory] = useState('');
-  const [brand,setBrand] = useState('');
-  const [countInStock,setCountInStock] = useState(0);
-  const [description,setDescription] = useState('')
-  
   const dispatch = useDispatch()
 
-  const {loading,error,product} = useSelector(state=>state.productDetails)
+  const[Name,setName] = useState("")
+  const[Price,setPrice] = useState("")
+  const[Category,setCategory] = useState("")
+  const[Brand,setBrand] = useState("")
+  const[CountInStock,setCountInStock] = useState("")
+  const[Description,setDescription] = useState("")
+  const[Image,setImage] = useState("")
+  const[File,setFile] = useState("")
+  const [errorMsg,setErrorMsg] = useState("")
 
-
-  useEffect(()=>{
-       if(product){  
-         if(!product.name){
-          console.log("Hello")
-            dispatch(productDetails(product.Id))
-        }else{
-          console.log("Hello121")
-            setName(product.name)
-            setPrice(product.price)
-            setImage(product.image)
-            setCategory(product.category)
-            setBrand(product.brand)
-            setCountInStock(product.countInStock)
-            setDescription(product.description)
-
-        }          
-    }
-  },[product,dispatch,productId,history])
-
-  const submitHandler=(e)=>{
+  const submitHandler = (e) =>{
     e.preventDefault()
-    //update Product
+    const validFileTypes = ['image/jpg','image/jpeg','image/png']
+    if(!validFileTypes.find(type => type === File.type)){
+      setErrorMsg("Uploaded image must be in JPG/JPEG/PNG format")
+      return
+    }
+    const form = new FormData();
+    form.append("name",Name)
+    form.append("price",Price)
+    form.append("category",Category)
+    form.append("brand",Brand)
+    form.append("countInStock",CountInStock)
+    form.append("Description",Description)
+    form.append("Image",Image)
+    form.append("category",Category)
+    dispatch(createProduct(form))
   }
-  
+
+
   return (
     <>
-        <Link to="/admin/products" className='btn btn-light my-3'>
-            Go Back
-        </Link>
-    
+      <Link to="/admin/products" className='btn btn-light my-3'>
+        Go Back
+      </Link>
       <FormContainer>
-      <h1>Edit Products</h1>
-      {loading ? <Loader/> : error ?<Message variant="danger">{error}</Message>:(
-      <Form onSubmit={submitHandler} >
-      <Form.Group controlId='name'>
-        <Form.Label>Name</Form.Label>
-        <Form.Control placeholder='enter your name' type='name' onChange={(e)=>setName(e.target.value)} value={name}/ >
-      </Form.Group>
-        <Form.Group controlId='price'>
-        <Form.Label>Price</Form.Label>
-        <Form.Control placeholder='enter your number' type='Number' onChange={(e)=>setPrice(e.target.value)} value={price}/ >
-        </Form.Group>
-        <Form.Group controlId='image'>
-        <Form.Label>Image</Form.Label>
-        <Form.Control placeholder='Enter image Url' type='text' onChange={(e)=>setImage(e.target.value)} value={image} >          
-        </Form.Control>
-          <Form.File id="image-file" label="Choose File" cust>
-            
-          </Form.File>
-        </Form.Group>
-        <Form.Group controlId='category'>
-        <Form.Label>Category</Form.Label>
-        <Form.Control placeholder='enter the category' type='text' onChange={(e)=>setCategory(e.target.value)} value={category}/ >
-        </Form.Group>
-        <Form.Group controlId='brand'>
-        <Form.Label>Brand</Form.Label>
-        <Form.Control placeholder='enter your Brand Name' type='text' onChange={(e)=>setBrand(e.target.value)} value={brand}/ >
-        </Form.Group>
-        <Form.Group controlId='countInStock'>
-        <Form.Label>Count In Stock</Form.Label>
-        <Form.Control placeholder='enter Count in Stock' type='Number' onChange={(e)=>setCountInStock(e.target.value)} value={countInStock}/ >
-        </Form.Group>
-        <Form.Group controlId='description'>
-        <Form.Label>Description</Form.Label>
-        <Form.Control placeholder='enter product description' type='text' onChange={(e)=>setDescription(e.target.value)} value={description}/ >
-        </Form.Group>        
-        <Button type="submit" variant="primary">
-          Update
-        </Button>
-      </Form>
-
-      )}</FormContainer>  
+        <h1>Create Product</h1>
+        <Form className='py-4' onSubmit={submitHandler}>
+          <Form.Group className="my-2"controlId='productName'>
+            <Form.Label>Product Name</Form.Label>
+            <Form.Control placeholder='Enter Product Name' type="text" onChange={(e)=>setName(e.target.value)} value={Name}  />
+          </Form.Group>
+          <Form.Group className="my-2"controlId='productPrice'>
+            <Form.Label>Product Price</Form.Label>
+            <Form.Control placeholder='Enter Product Price' type="Number" onChange={(e)=>setPrice(e.target.value)} value={Price}  />
+          </Form.Group>
+          <Form.Group className="my-2"controlId='productCategory'>
+            <Form.Label>Product Category</Form.Label>
+            <Form.Control placeholder='Enter Product Category' type="text" onChange={(e)=>setCategory(e.target.value)} value={Category}  />
+          </Form.Group>
+          <Form.Group className="my-2"controlId='productBrand'>
+            <Form.Label>Product Brand</Form.Label>
+            <Form.Control placeholder='Enter Product Brand' type="text" onChange={(e)=>setBrand(e.target.value)} value={Brand}  />
+          </Form.Group>
+          <Form.Group className="my-2"controlId='productCountInStock'>
+            <Form.Label>Product Count In Stock</Form.Label>
+            <Form.Control placeholder='Enter Product CountInStock' type="text" onChange={(e)=>setCountInStock(e.target.value)} value={CountInStock}  />
+          </Form.Group>
+          <Form.Group className="my-2"controlId='productDescription'>
+            <Form.Label>Product Description</Form.Label>
+            <Form.Control placeholder='Enter Product Description' type="text" onChange={(e)=>setDescription(e.target.value)} value={Description}  />
+          </Form.Group>
+          <Form.Group className="my-2"controlId='productImage'>
+            <Form.Label>Product Image</Form.Label>
+            <Form.Control type="file" onChange={(e)=>{
+              setImage("/uploads/"+e.target.files[0].name)
+              setFile(e.target.files[0])
+              console.log(File)
+              console.log(Image)
+              }}  />
+              {errorMsg && <Message variant="danger">{errorMsg}</Message>}
+          </Form.Group>
+          <Button type="submit" varinat="primary" className='my-2'>
+            Submit
+          </Button>
+        </Form>
+      </FormContainer>
     </>
   )
 }
