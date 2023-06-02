@@ -3,6 +3,7 @@ import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap'
 import {  useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { logoutUser } from '../action/userAction'
+import { LinkContainer } from 'react-router-bootstrap'
 
 const Header = () => {
 
@@ -34,15 +35,17 @@ const Header = () => {
     <header>
      <Navbar bg="dark" variant='dark' expand="md" collapseOnSelect>     
      <Container>
-      <Link to="/">
+      <LinkContainer to="/">
         <Navbar.Brand href="/">Shri Ganesh Bartan Bhandaar</Navbar.Brand>
-      </Link>
+      </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-          <Link to="/cart">
+          <LinkContainer to="/cart">
+            <Nav.Link>
             <i className='fa fa-shopping-cart'></i>Cart
-          </Link>
+            </Nav.Link>
+          </LinkContainer>
           {userInfo ? (
             <NavDropdown title={userInfo.name} id="username">
               <NavDropdown.Item onClick={profileHandler}>
@@ -56,9 +59,11 @@ const Header = () => {
               </NavDropdown.Item>
             </NavDropdown>
           ):(
-            <Link to="/login">
-            <i className="fa fa-sign-in" aria-hidden="true"></i>Sign In
-            </Link>
+            <LinkContainer to="/login">
+              <Nav.Link>
+              <i className="fa fa-sign-in" aria-hidden="true"></i>Sign In
+            </Nav.Link>
+            </LinkContainer>
           )}
           {userInfo && userInfo.isAdmin && (
             <NavDropdown title="admin" id="adminMenu">

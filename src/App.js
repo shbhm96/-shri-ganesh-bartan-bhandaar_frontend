@@ -1,33 +1,16 @@
 import './App.css';
-import { BrowserRouter as Router,Route, Routes} from "react-router-dom";
+import { Outlet} from "react-router-dom";
 import Header from './components/Header';
 import { Container } from 'react-bootstrap';
 
-import HomeScreen from "./screens/HomeScreen";
-import LoginScreen from './screens/LoginScreen';
-import ProductScreen from "./screens/ProductScreen";
-import CartScreen from "./screens/CartScreen";
-import PageNotFound from "./components/PageNotFound";
-import TestElement from "./components/TestElement";
-import RegisterScreen from "./screens/RegisterScreen";
-import ProfileScreen from "./screens/ProfileScreen";
-import ShippingScreen from "./screens/ShippingScreen";
-import PaymentScreen from "./screens/PaymentScreen";
-import PlaceOrderScreen from "./screens/PlaceOrderScreen";
-import OrderScreen from "./screens/OrderScreen";
-import UserListScreen from "./screens/UserListScreen";
-import UserEditScreen from "./screens/UserEditScreen";
-import ProductiListScreen from "./screens/ProductListScreen";
-import ProductEditScreen from "./screens/ProductEditScreen";
-
-
 function App() {
   return (
-    <Router>
+    <>
       <Header/>
       <main className='py-3'>
         <Container>
-          <Routes>
+          <Outlet/>
+          {/* <Routes>
           <Route path="/" element={<HomeScreen/>} exact/>
           <Route path="/admin/products" element={<ProductiListScreen/>} exact/>
           <Route path="/admin/product/create" element={<ProductEditScreen/>}/>
@@ -46,10 +29,10 @@ function App() {
           <Route path="/test" element={<TestElement/>} exact/>
           
             
-          </Routes>
+          </Routes> */}
         </Container>
       </main>
-    </Router>
+      </>
   );
 }
 
