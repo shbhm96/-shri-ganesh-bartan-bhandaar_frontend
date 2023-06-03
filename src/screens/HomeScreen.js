@@ -1,24 +1,18 @@
 import React, { useEffect } from 'react'
 import { Col,  Row } from 'react-bootstrap'
 import Product from '../components/Product'
-import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listProducts } from '../action/productAction'
+import { useGetProductQuery } from '../slices/productsApiSlice'
 
 
 const Homescreen = () => {
-  const dispatch = useDispatch()
-  const {loading,products,error} = useSelector(state=>state.productList)
- 
-  useEffect(()=>{
-    dispatch(listProducts())
-  },[dispatch])
+  const {data:products,isLoading,isError : error}=useGetProductQuery();
   
   return (
   <>
   <h1>Latest Product</h1>
-  {loading ? (<Loader/>) : error ? (<Message variant="danger">{error}</Message>):(
+  {isLoading ? (<Loader/>) : error ? (<Message variant="danger">{error?.data?.message || error.error}</Message>):(
     <Row>      
       {products && products.map((product)=>{
         return <Col sm={12} md={6} lg={4} xl={3} key={product._id}>

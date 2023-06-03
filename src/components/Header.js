@@ -9,8 +9,7 @@ const Header = () => {
 
   const dispatch = useDispatch()
   const history = useNavigate()
-
-  const {userInfo}=useSelector(state=>state.userLogin)
+const userInfo = ""
   
   const logoutHandler =()=>{
     dispatch(logoutUser())
@@ -46,7 +45,7 @@ const Header = () => {
             <i className='fa fa-shopping-cart'></i>Cart
             </Nav.Link>
           </LinkContainer>
-          {userInfo ? (
+          {/* {userInfo ? (
             <NavDropdown title={userInfo.name} id="username">
               <NavDropdown.Item onClick={profileHandler}>
                 <i className="fa fa-user p-1" aria-hidden="true"></i>
@@ -64,8 +63,8 @@ const Header = () => {
               <i className="fa fa-sign-in" aria-hidden="true"></i>Sign In
             </Nav.Link>
             </LinkContainer>
-          )}
-          {userInfo && userInfo.isAdmin && (
+          )} */}
+          {/* {userInfo && userInfo.isAdmin && (
             <NavDropdown title="admin" id="adminMenu">
             <NavDropdown.Item onClick={adminShowAllUser}>
               <i className="fa fa-user p-1" aria-hidden="true"></i>
@@ -81,7 +80,7 @@ const Header = () => {
                     Orders
             </NavDropdown.Item>
           </NavDropdown>
-          )}          
+          )}           */}
           </Nav>
         </Navbar.Collapse>
       </Container> 

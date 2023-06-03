@@ -10,7 +10,7 @@ import Loader from '../components/Loader';
 import { USER_UPDATE_RESET } from '../constants/userConstant';
 
 const UserEditScreen = () => {
-  const userId =useParams().id
+  const {id:userId} =useParams()
   const history = useNavigate()
 
   const [name,setName] = useState('');
