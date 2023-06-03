@@ -7,18 +7,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader.js';
 import Message from '../components/Message.js';
 
-const ProductScreen = ({history}) => {
+const ProductScreen = () => {
     const [qty,setQty] = useState(1)
     const navigate = useNavigate()
 
     const dispatch = useDispatch()
-    const params = useParams()
+    const { id : productId } = useParams()
     
-    const productId = params.id
     const {loading,error,product}=useSelector(state=>state.productDetails)
 
     const addToCartHandler = () => {
-        navigate(`/cart/${params.id}?qty=${qty}`)
+        navigate(`/cart/${productId}?qty=${qty}`)
     }
 
     useEffect(()=>{
@@ -34,10 +33,10 @@ const ProductScreen = ({history}) => {
         {error && <Message variant="danger">{error}</Message>}
         {product &&
         <Row>
-            <Col md={6}>
+            <Col md={5}>
                 <Image src={product && product.image} alt={product.name} fluid thumbnail />
             </Col> 
-            <Col md={3}>
+            <Col md={4}>
                 <ListGroup variant='flush'>
                     <ListGroup.Item>
                         <h2>{product.name}</h2>
@@ -72,7 +71,7 @@ const ProductScreen = ({history}) => {
                                     Status:
                                 </Col>
                                 <Col>
-                                    <strong>${product.countInStock > 0 ? "In Stock":"Out of Stock"}</strong>
+                                    <strong>{product.countInStock > 0 ? "In Stock":"Out of Stock"}</strong>
                                 </Col>
                             </Row>
                         </ListGroup.Item>
