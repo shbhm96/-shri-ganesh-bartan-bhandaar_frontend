@@ -9,7 +9,10 @@ import { PRODOCT_LIST_FAIL,
     PRODOCT_DELETE_FAIL,
     PRODOCT_CREATE_REQUEST,
     PRODOCT_CREATE_SUCCESS,
-    PRODOCT_CREATE_FAIL
+    PRODOCT_CREATE_FAIL,
+    PRODUCT_IMAGE_UPLOAD_REQUEST,
+    PRODUCT_IMAGE_UPLOAD_SUCCESS,
+    PRODUCT_IMAGE_UPLOAD_FAIL
  } from '../constants/productConstants'
 import backendApi from '../api/backend'
 
@@ -102,5 +105,27 @@ try{
 }
 }
 
-export {listProducts,deleteProduct,createProduct,productDetails}
+const uploadProductImage = (formData)=>async(dispatch)=>{
+    try{
+        dispatch({type:PRODUCT_IMAGE_UPLOAD_REQUEST,loading:true})
+        const config = {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+
+          const {data} = await backendApi.post("/upload",formData,config)
+          dispatch({
+            type:PRODUCT_IMAGE_UPLOAD_SUCCESS,
+            payload:data,
+          })        
+
+    }catch(err){
+        const error = err.response && err.response.data.message ? err.response.data.message : err.message
+        console.log(err.message)
+        dispatch({type:PRODUCT_IMAGE_UPLOAD_FAIL,payload:error,loading:true })
+    }
+}
+
+export {listProducts,deleteProduct,createProduct,productDetails,uploadProductImage}
 

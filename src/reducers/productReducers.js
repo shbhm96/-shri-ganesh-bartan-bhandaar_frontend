@@ -11,7 +11,10 @@ import { PRODOCT_DETAILS_FAIL,
     PRODOCT_CREATE_REQUEST,
     PRODOCT_CREATE_SUCCESS,
     PRODOCT_CREATE_FAIL,
-    PRODOCT_CREATE_RESET
+    PRODOCT_CREATE_RESET,
+    PRODUCT_IMAGE_UPLOAD_REQUEST,
+    PRODUCT_IMAGE_UPLOAD_SUCCESS,
+    PRODUCT_IMAGE_UPLOAD_FAIL
  } 
 from "../constants/productConstants"
 
@@ -71,4 +74,16 @@ switch (action.type){
     default:
         return state
 }
+}
+export const productImageUploadReducer = (state={image:[]},action)=>{
+    switch(action.type){
+        case PRODUCT_IMAGE_UPLOAD_REQUEST:
+            return {loading : true}
+        case PRODUCT_IMAGE_UPLOAD_SUCCESS:
+            return {loading:false,image:action.payload}
+        case PRODUCT_IMAGE_UPLOAD_FAIL:
+            return {loading:false,error:action.payload}
+        default:
+            return state
+    }
 }

@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { addToCart, removeFromCart } from '../action/cartAction'
 import { Button, Card, Col, Form, Image, ListGroup, Row } from 'react-bootstrap'
 import Message from '../components/Message'
+import { LinkContainer } from 'react-router-bootstrap'
 
 const CartScreen = () => {
   const params = useParams()
@@ -37,7 +38,14 @@ const CartScreen = () => {
 
   if(cartItems.length === 0){
     return(
-    <Message variant='danger'>Your Cart is Empty!</Message>
+      <>
+        <LinkContainer to="/">
+          <Button type="button" className='btn-solid mb-5'>
+            Shop More
+          </Button>
+        </LinkContainer>
+        <Message variant='danger'>Your Cart is Empty!</Message>
+      </>
     )
   }
 

@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { productCreateReducer, productDeleteReducer, productDetailsReducer, productListReducer } from "./productReducers";
+import { productCreateReducer, productDeleteReducer, productDetailsReducer, productImageUploadReducer, productListReducer } from "./productReducers";
 import { cartReducer } from "./cartReducers";
 import { userDeleteReducer, userDetailsReducer, userLoginReducer, userRegisterReducer, userUpdateProfileReducer, userUpdateReducer, usersListReducer } from "./userReducers";
 import { myOrderListReducer, orderCreateReducer, orderDetailsReducer, orderPayReducer } from "./orderReducers";
@@ -20,7 +20,8 @@ const rootReducer = combineReducers({
     userDelete       :   userDeleteReducer,
     userUpdate       :   userUpdateReducer,
     productDelete    :   productDeleteReducer,
-    productCreate    :   productCreateReducer
+    productCreate    :   productCreateReducer,
+    uploadProductImage:  productImageUploadReducer
 });
 
 const cartItemsfromLocalStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")):[]
@@ -35,7 +36,8 @@ const initialState = {
     cart:{cartItems:cartItemsfromLocalStorage,shippingAddress : shippingAddressFromStorage},
     userLogin:{userInfo:userInfoFromLocalStorage},
     orderDetails:{orderItems:[],shippingAddress:{}},
-    myOrderList:{orders:[]}
+    myOrderList:{orders:[]},
+    uploadProductImage:{}
 }
 
 export {rootReducer,initialState}

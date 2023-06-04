@@ -5,15 +5,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProducts } from '../action/productAction'
+import { useNavigate } from 'react-router-dom'
 
 
 const Homescreen = () => {
   const dispatch = useDispatch()
+  const history = useNavigate()
   const {loading,products,error} = useSelector(state=>state.productList)
  
   useEffect(()=>{
-    dispatch(listProducts())
-  },[dispatch])
+      dispatch(listProducts())
+  },[dispatch,history])
   
   return (
   <>
