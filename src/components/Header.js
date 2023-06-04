@@ -1,8 +1,9 @@
 import React, {  } from 'react'
 import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap'
 import {  useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 import { logoutUser } from '../action/userAction'
+import { LinkContainer } from 'react-router-bootstrap'
 
 const Header = () => {
 
@@ -13,9 +14,6 @@ const Header = () => {
   
   const logoutHandler =()=>{
     dispatch(logoutUser())
-  }
-  const profileHandler = () =>{
-    history('/profile')
   }
 
   const adminShowAllUser = () =>{
@@ -34,21 +32,25 @@ const Header = () => {
     <header>
      <Navbar bg="dark" variant='dark' expand="lg" collapseOnSelect>     
      <Container>
-      <Link to="/">
+      <LinkContainer to="/">
         <Navbar.Brand href="/">Shri Ganesh Bartan Bhandaar</Navbar.Brand>
-      </Link>
+      </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto">
-          <Link to="/cart">
+          <Nav className="ms-auto">
+            <LinkContainer to="/cart">
+          <Nav.Link to="/cart">
             <i className='fa fa-shopping-cart'></i>Cart
-          </Link>
+          </Nav.Link>
+          </LinkContainer>
           {userInfo ? (
             <NavDropdown title={userInfo.name} id="username">
-              <NavDropdown.Item onClick={profileHandler}>
+              <LinkContainer to="/profile">
+              <NavDropdown.Item>
                 <i className="fa fa-user p-1" aria-hidden="true"></i>
                       Profile
               </NavDropdown.Item>
+              </LinkContainer>
               
               <NavDropdown.Item onClick={logoutHandler}>
               <i className="fa fa-sign-out p-1" aria-hidden="true"></i>
@@ -56,9 +58,11 @@ const Header = () => {
               </NavDropdown.Item>
             </NavDropdown>
           ):(
-            <Link to="/login">
+            <LinkContainer to="/login">
+            <Nav.Link>
             <i className="fa fa-sign-in" aria-hidden="true"></i>Sign In
-            </Link>
+            </Nav.Link>
+            </LinkContainer>
           )}
           {userInfo && userInfo.isAdmin && (
             <NavDropdown title="admin" id="adminMenu">

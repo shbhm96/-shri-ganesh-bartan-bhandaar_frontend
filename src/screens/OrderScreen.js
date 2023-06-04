@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import {  Card, Col,  Image, ListGroup, Row } from 'react-bootstrap';
-import { Link, useParams,  } from 'react-router-dom';
+import { Link, useNavigate, useParams,  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -11,21 +11,26 @@ const OrderScreen = () => {
     const params = useParams()
     const orderId = params.id
     const dispatch = useDispatch()
+    const history = useNavigate()
     
     console.log("id",orderId)
 
     const {order,loading,error} = useSelector(state=>state.orderDetails)
+    const {userInfo} = useSelector((state)=>state.userLogin)
     console.log("order",order)
 
 
     useEffect(()=>{
+        if(!userInfo){
+            history("/")
+        }
         console.log('User Esffect')
         dispatch(getOrderDetails(orderId))
-    },[dispatch,orderId])
+    },[dispatch,orderId,userInfo,history])
 
 
   return (
-    <>
+    <>  
     {loading && <Loader/>}
     {error && <Message variant="danger">{error}</Message> }
         <h1>Order {order && order._id}</h1>        

@@ -206,7 +206,7 @@ export const userDelete = (id) =>async(dispatch,getState)=>{
                 Authorization:`Bearer ${userInfo.token}`
             }
         }
-        const {data}= await backendApi.delete(`/api/admin/deleteUser/${id}`,config)
+        const {data}= await backendApi.delete(`/admin/deleteUser/${id}`,config)
 
         dispatch({
             type:USER_DELETE_SUCCESS,
