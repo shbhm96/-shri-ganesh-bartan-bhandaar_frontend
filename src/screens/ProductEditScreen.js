@@ -6,6 +6,7 @@ import Message from '../components/Message'
 import { useDispatch, useSelector } from 'react-redux'
 import { createProduct, uploadProductImage } from '../action/productAction'
 import Loader from '../components/Loader'
+import axios from 'axios'
 
 const ProductEditScreen = () => {
   const dispatch = useDispatch()
@@ -17,38 +18,48 @@ const ProductEditScreen = () => {
   const[CountInStock,setCountInStock] = useState(0)
   const[Description,setDescription] = useState("This is a sample description.")
   const[Image,setImage] = useState("/images/sample.jpg")
+  const[file,setFile]= useState("")
   const [errorMsg,setErrorMsg] = useState("")
 
   const {loading,error,imageUrl} = useSelector(state=>state.uploadProductImage)
 
   const submitHandler = (e) =>{
     e.preventDefault()
-    
-    const form = new FormData();
-    form.append("name",Name)
-    form.append("price",Price)
-    form.append("category",Category)
-    form.append("brand",Brand)
-    form.append("countInStock",CountInStock)
-    form.append("Description",Description)
-    form.append("Image",Image)
-    form.append("category",Category)
-    dispatch(createProduct(form))
+    dispatch(createProduct(Name,Price,Category,Brand,CountInStock,Description,Image))
     setImage(imageUrl)
   }
 
+  const getImageUrl = async(formData)=>{
+      return await axios.post(
+        "http://127.0.0.1:5000/api/images",
+        formData,
+        {
+          headers:
+            {
+              "Content-Type": "multipart/form-data"
+            }
+        }
+      ).then(result=>result)
+      .then(data=>
+        {
+        console.log(data["data"]["imageUrl"])
+        setImage(data["data"]["imageUrl"])
+        setErrorMsg("Image Uploaded")
+        }
+      )
+  }
+
   const uploadImageHandler = (e)=>{
-    const file = e.target.files[0]
-    const formData = new FormData()
-    formData.append("image",file)
     const validFileTypes = ['image/jpg','image/jpeg','image/png']
-    if(!validFileTypes.find(type => type === File.type)){
+    if(validFileTypes.find(type => type === File.type)){
       setErrorMsg("Uploaded image must be in JPG/JPEG/PNG format")
       return
     }
-    dispatch(uploadProductImage(formData))
-
-
+   const formData = new FormData()
+   formData.append("image",file)
+   formData.append("description",Description)
+   const result = getImageUrl(formData)
+   console.log("result",result)
   }
 
   return (
@@ -85,8 +96,9 @@ const ProductEditScreen = () => {
           </Form.Group>
           <Form.Group className="my-2"controlId='productImage'>
             <Form.Label>Product Image</Form.Label>
-            <Form.Control type="text" value={Image}/>
-            <Form.Control type="file" onChange={uploadImageHandler}  />
+            <Form.Control placeholder='Enter Product Description' type="text" value={Image} onChange={(e)=>console.log()} disabled/>
+            <Form.Control type="file"  onChange={(e)=>{setFile(e.target.files[0])}}/>
+            <Button type="button" variant='primary' onClick={uploadImageHandler}>Upload</Button>
               {loading && <Loader/>}
               {error && <Message variant="danger">{error}</Message>}
               {errorMsg && <Message variant="danger">{errorMsg}</Message>}

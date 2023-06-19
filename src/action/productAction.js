@@ -77,7 +77,17 @@ try{
 }
 }
 
-const createProduct = (formData) =>async(dispatch,getState)=>{    
+const createProduct = (Name,Price,Category,Brand,CountInStock,Description,Image) =>async(dispatch,getState)=>{    
+
+    const productData = {
+        name : Name,
+        price : Price,
+        category : Category,
+        brand : Brand,
+        countInStock : CountInStock,
+        description : Description,
+        image : Image
+    }
 try{
     dispatch({
         type:PRODOCT_CREATE_REQUEST,
@@ -91,7 +101,7 @@ try{
             Authorization:`Bearer ${userInfo.token}`
         }
     }
-    const {data} = await backendApi.get(`/admin/product/create`,{}, config)
+    const {data} = await backendApi.post(`/admin/product/create`,{productData}, config)
 
     dispatch({
         type:PRODOCT_CREATE_SUCCESS,

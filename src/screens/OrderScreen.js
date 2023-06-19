@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import {  Card, Col,  Image, ListGroup, Row } from 'react-bootstrap';
+import {  Button, Card, Col,  Image, ListGroup, Row } from 'react-bootstrap';
 import { Link, useNavigate, useParams,  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
@@ -50,7 +50,10 @@ const OrderScreen = () => {
                         {order.shippingAddress.country}
                     </p>
                     {order.isDelivered ? <Message variant="success">Delivered on {order.deliveredAt}</Message>:
-                    <Message variant="danger">Not Delivered</Message>}
+                    <>
+                        <Message variant="danger">Not Delivered</Message>
+                        <Button variant=''>Delivered</Button>
+                    </>}
                 </ListGroup.Item>
 
                 <ListGroup.Item>
