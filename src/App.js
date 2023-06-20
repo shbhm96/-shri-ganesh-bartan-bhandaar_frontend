@@ -19,6 +19,8 @@ import UserListScreen from "./screens/UserListScreen";
 import UserEditScreen from "./screens/UserEditScreen";
 import ProductiListScreen from "./screens/ProductListScreen";
 import ProductEditScreen from "./screens/ProductEditScreen";
+import OrdersListScreen from './screens/OrdersListScreen';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -43,12 +45,14 @@ function App() {
           <Route path="/product/:id" element={<ProductScreen/> }/>
           <Route path="/cart/:id?" element={<CartScreen/>} exact/>
           <Route path="*" element={<PageNotFound/>} />
+          <Route path="/admin/orders" element={<OrdersListScreen/>}exact/>
           <Route path="/test" element={<TestElement/>} exact/>
           
             
           </Routes>
         </Container>
       </main>
+      <Footer/>
     </Router>
   );
 }

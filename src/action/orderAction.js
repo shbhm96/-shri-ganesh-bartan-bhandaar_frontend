@@ -1,5 +1,27 @@
 import backendApi from '../api/backend'
-import { MY_ORDER_LIST_FAIL, MY_ORDER_LIST_REQUEST, MY_ORDER_LIST_SUCCESS, ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_PAY_FAIL, ORDER_PAY_REQUEST, ORDER_PAY_SUCCESS } from '../constants/orderConstants'
+import { 
+    AMOUNT_PAID_FAIL,
+    AMOUNT_PAID_REQUEST,
+    AMOUNT_PAID_SUCCESS,
+    MY_ORDER_LIST_FAIL, 
+    MY_ORDER_LIST_REQUEST, 
+    MY_ORDER_LIST_SUCCESS, 
+    ORDERS_LIST_FAIL, 
+    ORDERS_LIST_REQUEST, 
+    ORDERS_LIST_SUCCESS, 
+    ORDER_CREATE_FAIL, 
+    ORDER_CREATE_REQUEST, 
+    ORDER_CREATE_SUCCESS, 
+    ORDER_DELIVERED_FAIL, 
+    ORDER_DELIVERED_REQUEST, 
+    ORDER_DELIVERED_SUCCESS, 
+    ORDER_DETAILS_FAIL, 
+    ORDER_DETAILS_REQUEST, 
+    ORDER_DETAILS_SUCCESS, 
+    ORDER_PAY_FAIL, 
+    ORDER_PAY_REQUEST, 
+    ORDER_PAY_SUCCESS 
+} from '../constants/orderConstants'
 
 export const createOrder = (order) =>async(dispatch,getState)=>{
     
@@ -120,5 +142,84 @@ export const myOrderList = () =>async(dispatch,getState)=>{
         const error = err.response && err.response.data.message ? err.response.data.message : err.message
         console.log(err.message)
         dispatch({type:MY_ORDER_LIST_FAIL,payload:error,loading:true })
+    }
+}
+
+export const getAllOrdersList = () =>async(dispatch,getState)=>{
+    try{
+        dispatch({
+            type:ORDERS_LIST_REQUEST,loading:true
+        })
+
+        const {userLogin : { userInfo }} = getState()
+
+        const config = {
+            headers:{
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+        const {data}= await backendApi.get(`/admin/getAllOrders`,config)
+        console.log("admin orders",data)
+        dispatch({
+            type:ORDERS_LIST_SUCCESS,
+            payload:data,
+        })           
+    }catch(err){
+        const error = err.response && err.response.data.message ? err.response.data.message : err.message
+        console.log(err.message)
+        dispatch({type:ORDERS_LIST_FAIL,payload:error,loading:true })
+    }
+
+}
+
+export const amountPaid=(id)=>async(dispatch,getState)=>{
+    try{
+        dispatch({
+            type:AMOUNT_PAID_REQUEST,loading:true
+        })
+
+        const {userLogin : { userInfo }} = getState()
+
+        const config = {
+            headers:{
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+        const {data}= await backendApi.get(`/admin/order/paid/${id}`,config)
+        console.log("admin orders",data)
+        dispatch({
+            type:AMOUNT_PAID_SUCCESS,
+            payload:data,
+        })           
+    }catch(err){
+        const error = err.response && err.response.data.message ? err.response.data.message : err.message
+        console.log(err.message)
+        dispatch({type:AMOUNT_PAID_FAIL,payload:error,loading:true })
+    }
+}
+
+export const orderDelivered=(id)=>async(dispatch,getState)=>{
+    try{
+        dispatch({
+            type:ORDER_DELIVERED_REQUEST,loading:true
+        })
+
+        const {userLogin : { userInfo }} = getState()
+
+        const config = {
+            headers:{
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+        const {data}= await backendApi.get(`/admin/order/delivered/${id}`,config)
+        console.log("admin orders",data)
+        dispatch({
+            type:ORDER_DELIVERED_SUCCESS,
+            payload:data,
+        })           
+    }catch(err){
+        const error = err.response && err.response.data.message ? err.response.data.message : err.message
+        console.log(err.message)
+        dispatch({type:ORDER_DELIVERED_FAIL,payload:error,loading:true })
     }
 }
