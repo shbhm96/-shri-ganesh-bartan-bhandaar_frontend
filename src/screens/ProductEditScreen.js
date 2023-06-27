@@ -4,9 +4,9 @@ import FormContainer from '../components/FormContainer'
 import { Button, Form } from 'react-bootstrap'
 import Message from '../components/Message'
 import { useDispatch, useSelector } from 'react-redux'
-import { createProduct, uploadProductImage } from '../action/productAction'
+import { createProduct } from '../action/productAction'
 import Loader from '../components/Loader'
-import axios from 'axios'
+import uploadImageApi from '../api/uploadImageAPI'
 
 const ProductEditScreen = () => {
   const dispatch = useDispatch()
@@ -29,36 +29,16 @@ const ProductEditScreen = () => {
     setImage(imageUrl)
   }
 
-  const getImageUrl = async(formData)=>{
-      return await axios.post(
-        "http://127.0.0.1:5000/api/images",
-        formData,
-        {
-          headers:
-            {
-              "Content-Type": "multipart/form-data"
-            }
-        }
-      ).then(result=>result)
-      .then(data=>
-        {
-        console.log(data["data"]["imageUrl"])
-        setImage(data["data"]["imageUrl"])
-        setErrorMsg("Image Uploaded")
-        }
-      )
-  }
-
   const uploadImageHandler = (e)=>{
     const validFileTypes = ['image/jpg','image/jpeg','image/png']
-    if(validFileTypes.find(type => type === File.type)){
+    if(validFileTypes.find(type => type === file.type)){
       setErrorMsg("Uploaded image must be in JPG/JPEG/PNG format")
       return
     }
    const formData = new FormData()
    formData.append("image",file)
    formData.append("description",Description)
-   const result = getImageUrl(formData)
+   const result = uploadImageApi(formData)
    console.log("result",result)
   }
 

@@ -23,6 +23,9 @@ import {
     ORDER_PAY_SUCCESS 
 } from '../constants/orderConstants'
 
+
+//customer
+
 export const createOrder = (order) =>async(dispatch,getState)=>{
     
     try{
@@ -144,6 +147,9 @@ export const myOrderList = () =>async(dispatch,getState)=>{
         dispatch({type:MY_ORDER_LIST_FAIL,payload:error,loading:true })
     }
 }
+
+
+//seller
 
 export const getAllOrdersList = () =>async(dispatch,getState)=>{
     try{
