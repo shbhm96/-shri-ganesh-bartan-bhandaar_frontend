@@ -30,10 +30,12 @@ const ProductEditScreen = () => {
   }
 
   const uploadImageHandler = (e)=>{
-    const validFileTypes = ['image/jpg','image/jpeg','image/png']
-    if(validFileTypes.find(type => type === file.type)){
-      setErrorMsg("Uploaded image must be in JPG/JPEG/PNG format")
-      return
+    setErrorMsg("")
+    for(var i in ["jpg","jpeg","png"]){
+      if(i !== file.type.split("/").pop().toString()){
+        setErrorMsg("Invalid File Type!!!")
+        return
+      }
     }
    const formData = new FormData()
    formData.append("image",file)
