@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom'
 import FormContainer from '../components/FormContainer'
 import { Button, Form } from 'react-bootstrap'
 import Message from '../components/Message'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { createProduct } from '../action/productAction'
-import Loader from '../components/Loader'
 import uploadImageApi from '../api/uploadImageAPI'
 
 const ProductEditScreen = () => {
@@ -19,29 +18,32 @@ const ProductEditScreen = () => {
   const[Description,setDescription] = useState("This is a sample description.")
   const[Image,setImage] = useState("/images/sample.jpg")
   const[file,setFile]= useState("")
+  // eslint-disable-next-line
   const [errorMsg,setErrorMsg] = useState("")
-
-  const {loading,error,imageUrl} = useSelector(state=>state.uploadProductImage)
 
   const submitHandler = (e) =>{
     e.preventDefault()
+    let list = (Description.split("\n"))
+    console.log(list)
+    let desc = "<br><ol type='circle'>"
+    for(var i in list){
+      desc= desc + "<li>"+list[i]+"</li>"
+    }
+    setDescription(desc.toString())
     dispatch(createProduct(Name,Price,Category,Brand,CountInStock,Description,Image))
-    setImage(imageUrl)
   }
 
   const uploadImageHandler = (e)=>{
-    setErrorMsg("")
-    for(var i in ["jpg","jpeg","png"]){
-      if(i !== file.type.split("/").pop().toString()){
-        setErrorMsg("Invalid File Type!!!")
-        return
-      }
+    if(!(file.name && file.type)) {
+      setErrorMsg("Please Choose File")
+      return
     }
    const formData = new FormData()
    formData.append("image",file)
    formData.append("description",Description)
    const result = uploadImageApi(formData)
-   console.log("result",result)
+   console.log(result)
+   setImage(result)
   }
 
   return (
@@ -74,15 +76,13 @@ const ProductEditScreen = () => {
           </Form.Group>
           <Form.Group className="my-2"controlId='productDescription'>
             <Form.Label>Product Description</Form.Label>
-            <Form.Control placeholder='Enter Product Description' type="text" onChange={(e)=>setDescription(e.target.value)} value={Description}  />
+            <Form.Control placeholder='Enter Product Description' as="textarea" rows={10} onChange={(e)=>setDescription(e.target.value)} value={Description}  />
           </Form.Group>
           <Form.Group className="my-2"controlId='productImage'>
             <Form.Label>Product Image</Form.Label>
             <Form.Control placeholder='Enter Product Description' type="text" value={Image} onChange={(e)=>console.log()} disabled/>
-            <Form.Control type="file"  onChange={(e)=>{setFile(e.target.files[0])}}/>
+            <Form.Control type="file"  onChange={(e)=>{setFile(e.target.files[0])}} />
             <Button type="button" variant='primary' onClick={uploadImageHandler}>Upload</Button>
-              {loading && <Loader/>}
-              {error && <Message variant="danger">{error}</Message>}
               {errorMsg && <Message variant="danger">{errorMsg}</Message>}
           </Form.Group>
           <Button type="submit" varinat="primary" className='my-2'>
