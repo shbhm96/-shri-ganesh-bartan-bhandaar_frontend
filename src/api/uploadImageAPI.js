@@ -1,7 +1,6 @@
 import axios from "axios"
 
 const BACKEND_API = process.env.REACT_APP_BACKEND_SERVER_API
-const url = null
 const uploadImageApi = async(formdata)=>{
 await axios.post(
     `${BACKEND_API}/api/images`,
