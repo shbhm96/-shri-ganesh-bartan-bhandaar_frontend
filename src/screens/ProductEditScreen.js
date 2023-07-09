@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
 import FormContainer from '../components/FormContainer'
 import { Button, Form } from 'react-bootstrap'
 import Message from '../components/Message'
 import { useDispatch } from 'react-redux'
 import { createProduct } from '../action/productAction'
-import uploadImageApi from '../api/uploadImageAPI'
+// import uploadImageApi from '../api/uploadImageAPI'
+import axios from 'axios'
 
 const ProductEditScreen = () => {
   const dispatch = useDispatch()
@@ -18,8 +19,44 @@ const ProductEditScreen = () => {
   const[Description,setDescription] = useState("This is a sample description.")
   const[Image,setImage] = useState("/images/sample.jpg")
   const[file,setFile]= useState("")
+
+  const[isImageUploading,setIsImageUploading] = useState()
+  const formData = new FormData()
   // eslint-disable-next-line
-  const [errorMsg,setErrorMsg] = useState("")
+  const [errorMsg,setErrorMsg] = useState(false)
+
+  const uploadImageAPI = useCallback(async (formData)=>{
+    if(isImageUploading){
+      return
+    }
+    setIsImageUploading(true)    
+    axios
+    .post(`${process.env.REACT_APP_BACKEND_SERVER_API}/api/images`,
+    formData,
+    {
+      headers:
+      {
+        "Content-Type":"multipart/form-data"
+      }
+    }).then(result=>result)
+    .then(data=>{
+      console.log(data["data"]["imageUrl"])
+      setImage(data["data"]["imageUrl"])
+    })
+    setIsImageUploading(false)
+  },[formData,isImageUploading])
+
+
+  const uploadImageHandler = (e)=>{
+    setErrorMsg("")
+    if(!(file.name && file.type)) {
+      setErrorMsg("Please Choose File")
+      return
+    }
+   formData.append("image",file)
+   formData.append("description",Description)
+   uploadImageAPI(formData)
+  }  
 
   const submitHandler = (e) =>{
     e.preventDefault()
@@ -33,18 +70,7 @@ const ProductEditScreen = () => {
     dispatch(createProduct(Name,Price,Category,Brand,CountInStock,Description,Image))
   }
 
-  const uploadImageHandler = (e)=>{
-    if(!(file.name && file.type)) {
-      setErrorMsg("Please Choose File")
-      return
-    }
-   const formData = new FormData()
-   formData.append("image",file)
-   formData.append("description",Description)
-   const result = uploadImageApi(formData)
-   console.log(result)
-   setImage(result)
-  }
+  
 
   return (
     <>

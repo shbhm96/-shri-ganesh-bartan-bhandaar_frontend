@@ -34,22 +34,27 @@ const ProductScreen = ({history}) => {
         {error && <Message variant="danger">{error}</Message>}
         {product &&
         <Row>
-            <Col md={6}>
+            <Col md={5}>
                 <Image src={product && product.image} alt={product.name} fluid thumbnail />
             </Col> 
-            <Col md={3}>
+            <Col md={4}>
                 <ListGroup variant='flush'>
                     <ListGroup.Item>
-                        <h2>{product.name}</h2>
+                        <h3>{product.name}</h3>
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <Rating value={product.rating} text={`${product.numReviews} reviews`}/>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        Price: ${product.price}
+                        <b>Price &#x20B9; </b> {product.price}
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        Description: {product.description}
+                        <b>Description: </b><br/>
+                        {product.description &&  product.description.toString().split("\n").map((x)=>{
+                            return(
+                                <li key={x}>{x}</li>
+                            )
+                        })}
                     </ListGroup.Item>
                 </ListGroup>
             </Col>

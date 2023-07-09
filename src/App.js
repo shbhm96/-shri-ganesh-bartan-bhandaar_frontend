@@ -44,11 +44,11 @@ function App() {
           <Route path="/profile" element={<ProfileScreen/>} exact/>      
           <Route path="/product/:id" element={<ProductScreen/> }/>
           <Route path="/cart/:id?" element={<CartScreen/>} exact/>
-          <Route path="*" element={<PageNotFound/>} />
+          
           <Route path="/admin/orders" element={<OrdersListScreen/>}exact/>
           <Route path="/test" element={<TestElement/>} exact/>
           
-            
+          <Route path="*" element={<PageNotFound/>} /> 
           </Routes>
         </Container>
       </main>
