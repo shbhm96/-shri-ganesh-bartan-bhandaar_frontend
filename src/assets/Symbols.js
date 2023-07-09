@@ -1,0 +1,1 @@
+export const RupeeSign = "&#8377;"

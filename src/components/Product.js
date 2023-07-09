@@ -2,6 +2,7 @@ import React from 'react'
 import { Card } from 'react-bootstrap'
 import Rating from './Rating'
 import { Link } from 'react-router-dom'
+import { RupeeSign } from '../assets/Symbols'
 
 const Product = ({product}) => {
   
@@ -23,7 +24,7 @@ const Product = ({product}) => {
         <Rating value={product.rating} text={`${product.numReviews} reviews`}/>
       </Card.Text>
 
-      <Card.Text as="h3">${product.price}</Card.Text>
+      <Card.Text as="h3">{RupeeSign}{product.price}</Card.Text>
     </Card>
   )
 }

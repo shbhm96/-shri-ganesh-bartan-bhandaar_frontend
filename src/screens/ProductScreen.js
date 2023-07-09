@@ -6,6 +6,7 @@ import Rating from '../components/Rating';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader.js';
 import Message from '../components/Message.js';
+import { RupeeSign } from '../assets/Symbols.js';
 
 const ProductScreen = ({history}) => {
     const [qty,setQty] = useState(1)
@@ -67,7 +68,7 @@ const ProductScreen = ({history}) => {
                                     Price:
                                 </Col>
                                 <Col>
-                                    <strong>${product.price}</strong>
+                                    <strong>{RupeeSign}{product.price}</strong>
                                 </Col>
                             </Row>
                         </ListGroup.Item>
@@ -77,7 +78,7 @@ const ProductScreen = ({history}) => {
                                     Status:
                                 </Col>
                                 <Col>
-                                    <strong>${product.countInStock > 0 ? "In Stock":"Out of Stock"}</strong>
+                                    <strong>{product.countInStock > 0 ? "In Stock":"Out of Stock"}</strong>
                                 </Col>
                             </Row>
                         </ListGroup.Item>

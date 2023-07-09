@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { createOrder } from '../action/orderAction';
+import { RupeeSign } from '../assets/Symbols';
 
 const PlaceOrderScreen = () => {
     const {cartItems, shippingAddress,paymentMethod} = useSelector(state=>state.cart)
@@ -101,25 +102,25 @@ const PlaceOrderScreen = () => {
                     <ListGroup.Item>
                         <Row>
                             <Col>Items</Col>
-                            <Col>${itemsPrice}</Col>
+                            <Col>{RupeeSign}{itemsPrice}</Col>
                         </Row>
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <Row>
                             <Col>Shipping</Col>
-                            <Col>${shippingPrice}</Col>
+                            <Col>{RupeeSign}{shippingPrice}</Col>
                         </Row>
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <Row>
                             <Col>Tax</Col>
-                            <Col>${taxPrice}</Col>
+                            <Col>{RupeeSign}{taxPrice}</Col>
                         </Row>
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <Row>
                             <Col>Total</Col>
-                            <Col>${totalPrice}</Col>
+                            <Col>{RupeeSign}{totalPrice}</Col>
                         </Row>
                     </ListGroup.Item>
                     <ListGroup.Item>

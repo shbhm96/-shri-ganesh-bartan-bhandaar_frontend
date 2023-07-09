@@ -7,6 +7,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { deleteProduct, listProducts } from '../action/productAction';
 import { PRODOCT_CREATE_RESET } from '../constants/productConstants';
+import { RupeeSign } from '../assets/Symbols';
 
 const ProductiListScreen = ({getState}) => {
     const dispatch = useDispatch()
@@ -75,7 +76,7 @@ const ProductiListScreen = ({getState}) => {
                         return <tr key={product._id}>
                             <td>{product._id}</td>
                             <td>{product.name}</td>
-                            <td>${product.price}</td>
+                            <td>{RupeeSign}{product.price}</td>
                             <td>{product.category}</td>
                             <td>{product.brand}</td>
                             <td>
