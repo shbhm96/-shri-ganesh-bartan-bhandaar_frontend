@@ -73,13 +73,6 @@ const ProductEditScreen = () => {
         setProductUploadErrorMsg("No Changes were made!!!")
         return
       }
-    let list = (Description.split("\n"))
-    console.log(list)
-    let desc = "<br><ol type='circle'>"
-    for(var i in list){
-      desc= desc + "<li>"+list[i]+"</li>"
-    }
-    setDescription(desc.toString())
     dispatch(createProduct(Name,Price,Category,Brand,CountInStock,Description,Image))
   }
 
