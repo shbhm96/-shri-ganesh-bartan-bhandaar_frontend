@@ -33,6 +33,7 @@ function App() {
           <Route path="/" element={<HomeScreen/>} exact/>
           <Route path="/admin/products" element={<ProductiListScreen/>} exact/>
           <Route path="/admin/product/create" element={<ProductEditScreen/>}/>
+          <Route path="/admin/product/:id/edit" element={<ProductEditScreen/>}/>
           <Route path="/admin/users" element={<UserListScreen/>} exact/>
           <Route path="/admin/user/:id/edit" element={<UserEditScreen/>}/>          
           <Route path="/login" element={<LoginScreen/>} exact />

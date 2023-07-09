@@ -1,15 +1,21 @@
-import React, { useCallback, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import FormContainer from '../components/FormContainer'
 import { Button, Form } from 'react-bootstrap'
 import Message from '../components/Message'
-import { useDispatch } from 'react-redux'
-import { createProduct } from '../action/productAction'
+import { useDispatch, useSelector } from 'react-redux'
+import { createProduct, productDetails } from '../action/productAction'
 // import uploadImageApi from '../api/uploadImageAPI'
 import axios from 'axios'
+import Loader from '../components/Loader'
 
 const ProductEditScreen = () => {
+  const params = useParams()
+  const productId = params.id
   const dispatch = useDispatch()
+  const history = useNavigate()
+
+  const {loading,error,product}=useSelector(state=>state.productDetails)
 
   const[Name,setName] = useState("Sample Product")
   const[Price,setPrice] = useState(0)
@@ -24,6 +30,7 @@ const ProductEditScreen = () => {
   const formData = new FormData()
   // eslint-disable-next-line
   const [errorMsg,setErrorMsg] = useState(false)
+  const [ProductUploadErrorMsg,setProductUploadErrorMsg]=useState("")
 
   const uploadImageAPI = useCallback(async (formData)=>{
     if(isImageUploading){
@@ -60,6 +67,12 @@ const ProductEditScreen = () => {
 
   const submitHandler = (e) =>{
     e.preventDefault()
+    if(product.name === Name && product.description ===Description && product.price === Price
+      && product.image === Image && product.category === Category && product.brand === Brand 
+      && product.countInStock === CountInStock){
+        setProductUploadErrorMsg("No Changes were made!!!")
+        return
+      }
     let list = (Description.split("\n"))
     console.log(list)
     let desc = "<br><ol type='circle'>"
@@ -70,7 +83,18 @@ const ProductEditScreen = () => {
     dispatch(createProduct(Name,Price,Category,Brand,CountInStock,Description,Image))
   }
 
-  
+  useEffect(()=>{
+    if(productId){
+      dispatch(productDetails(productId))
+    }
+    setName(product.name)
+    setCategory(product.category)
+    setBrand(product.brand)
+    setCountInStock(product.countInStock)
+    setDescription(product.description)
+    setImage(product.image)
+    setPrice(product.price)
+  },[productId,dispatch,product.name,product.category,product.price,product.Description])
 
   return (
     <>
@@ -78,7 +102,9 @@ const ProductEditScreen = () => {
         Go Back
       </Link>
       <FormContainer>
+        {ProductUploadErrorMsg && <Message variant="success">{ProductUploadErrorMsg}</Message>}
         <h1>Create Product</h1>
+        {loading && <Loader/>}
         <Form className='py-4' onSubmit={submitHandler}>
           <Form.Group className="my-2"controlId='productName'>
             <Form.Label>Product Name</Form.Label>

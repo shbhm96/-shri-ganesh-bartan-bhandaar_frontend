@@ -23,7 +23,7 @@ const ProductScreen = ({history}) => {
     }
 
     useEffect(()=>{
-            dispatch(productDetails(productId))            
+        dispatch(productDetails(productId))
     },[dispatch,productId])
 
 
