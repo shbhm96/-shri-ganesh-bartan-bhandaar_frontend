@@ -1,1 +1,1 @@
-export const RupeeSign = "&#8377;"
+export const RupeeSign=<i className="fa fa-inr"></i>
