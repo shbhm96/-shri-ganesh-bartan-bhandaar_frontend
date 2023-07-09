@@ -25,6 +25,7 @@ const ProductEditScreen = () => {
   const[Description,setDescription] = useState("This is a sample description.")
   const[Image,setImage] = useState("/images/sample.jpg")
   const[file,setFile]= useState("")
+  const [MRP,setMRP]=useState(0)
 
   const[isImageUploading,setIsImageUploading] = useState()
   const formData = new FormData()
@@ -73,7 +74,7 @@ const ProductEditScreen = () => {
         setProductUploadErrorMsg("No Changes were made!!!")
         return
       }
-    dispatch(createProduct(Name,Price,Category,Brand,CountInStock,Description,Image))
+    dispatch(createProduct(Name,Price,Category,Brand,CountInStock,Description,Image,MRP))
   }
 
   useEffect(()=>{
@@ -106,6 +107,10 @@ const ProductEditScreen = () => {
           <Form.Group className="my-2"controlId='productPrice'>
             <Form.Label>Product Price</Form.Label>
             <Form.Control placeholder='Enter Product Price' type="Number" onChange={(e)=>setPrice(e.target.value)} value={Price}  />
+          </Form.Group>
+          <Form.Group className="my-2"controlId='productMRP'>
+            <Form.Label>Product MRP</Form.Label>
+            <Form.Control placeholder='Enter Product MRP' type="Number" onChange={(e)=>setMRP(e.target.value)} value={MRP}  />
           </Form.Group>
           <Form.Group className="my-2"controlId='productCategory'>
             <Form.Label>Product Category</Form.Label>

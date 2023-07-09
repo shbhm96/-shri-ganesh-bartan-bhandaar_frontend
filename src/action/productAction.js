@@ -77,7 +77,7 @@ try{
 }
 }
 
-const createProduct = (Name,Price,Category,Brand,CountInStock,Description,Image) =>async(dispatch,getState)=>{    
+const createProduct = (Name,Price,Category,Brand,CountInStock,Description,Image,MRP) =>async(dispatch,getState)=>{    
 
     const productData = {
         name : Name,
@@ -86,7 +86,8 @@ const createProduct = (Name,Price,Category,Brand,CountInStock,Description,Image)
         brand : Brand,
         countInStock : CountInStock,
         description : Description,
-        image : Image
+        image : Image,
+        mrp:MRP
     }
 try{
     dispatch({

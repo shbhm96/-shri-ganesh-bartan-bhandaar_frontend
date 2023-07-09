@@ -26,6 +26,12 @@ const ProductScreen = ({history}) => {
         dispatch(productDetails(productId))
     },[dispatch,productId])
 
+    const productDiscount = (price,mrp)=>{
+        let mrp1 = Math.round(mrp)
+        let price1 = Math.round(price)
+        return Math.round((mrp1-price1)*100/mrp1)
+    }
+
 
   return (
     <>
@@ -47,7 +53,12 @@ const ProductScreen = ({history}) => {
                         <Rating value={product.rating} text={`${product.numReviews} reviews`}/>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <b>Price &#x20B9; </b> {product.price}
+                        
+                        <span className='m-2' style={{color:"red",fontSize:"30px"}}>
+                            -{productDiscount(product.price,product.mrp)}%
+                        </span>{RupeeSign}{product.price}<br className='m-3'/>
+                        <span className='text-decoration-line-through fw-bold'>{RupeeSign}{product.mrp} </span>
+                        
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <b>Description: </b><br/>
@@ -68,7 +79,9 @@ const ProductScreen = ({history}) => {
                                     Price:
                                 </Col>
                                 <Col>
-                                    <strong>{RupeeSign}{product.price}</strong>
+                                    <strong>
+                                        {RupeeSign}{product.price}
+                                    </strong>
                                 </Col>
                             </Row>
                         </ListGroup.Item>
