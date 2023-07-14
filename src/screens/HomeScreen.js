@@ -12,8 +12,6 @@ const Homescreen = () => {
   const dispatch = useDispatch()
   const history = useNavigate()
   const {loading,products,error} = useSelector(state=>state.productList)
-
-  {console.log("Hey",loading)}
  
   useEffect(()=>{
       dispatch(listProducts())
@@ -33,6 +31,16 @@ const Homescreen = () => {
       })}
     </Row>
   )}
+  <Message variant="info">
+    Did Not Find? What you are looking for? 
+    <a 
+      href="https://forms.gle/Z2ph2YH6GsP36Pnh8"
+      target='_blank' 
+      rel="noreferrer"
+    >
+      Click Here!!
+    </a>
+  </Message>
   </>
   )
 }
