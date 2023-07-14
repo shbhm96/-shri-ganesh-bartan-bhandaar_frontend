@@ -1,5 +1,12 @@
 import { combineReducers } from "redux";
-import { productCreateReducer, productDeleteReducer, productDetailsReducer, productImageUploadReducer, productListReducer } from "./productReducers";
+import { 
+    productCreateReducer, 
+    productDeleteReducer, 
+    productDetailsReducer, 
+    productImageUploadReducer, 
+    productListReducer,
+    productUpdateReducer
+} from "./productReducers";
 import { cartReducer } from "./cartReducers";
 import { userDeleteReducer, userDetailsReducer, userLoginReducer, userRegisterReducer, userUpdateProfileReducer, userUpdateReducer, usersListReducer } from "./userReducers";
 import { getAllOrdersListReducer, myOrderListReducer, orderCreateReducer, orderDetailsReducer, orderPayReducer,amountPaidReducer, orderDeliveredReducer } from "./orderReducers";
@@ -24,7 +31,8 @@ const rootReducer = combineReducers({
     uploadProductImage:  productImageUploadReducer,
     getAllOrdersList :   getAllOrdersListReducer,
     amountPaid       :   amountPaidReducer,
-    orderDelivered   :   orderDeliveredReducer
+    orderDelivered   :   orderDeliveredReducer,
+    productUpdate    :   productUpdateReducer,
 });
 
 const cartItemsfromLocalStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")):[]

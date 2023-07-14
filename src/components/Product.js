@@ -24,7 +24,14 @@ const Product = ({product}) => {
         <Rating value={product.rating} text={`${product.numReviews} reviews`}/>
       </Card.Text>
 
-      <Card.Text as="h3">{RupeeSign}{product.price}</Card.Text>
+      <Card.Text as="h3">
+        {RupeeSign}{product.price}<br className='m-3'/>
+        <h6>
+          <span className='text-decoration-line-through fw-bold'>
+            {RupeeSign}{product.mrp}
+          </span>
+        </h6>
+      </Card.Text>
     </Card>
   )
 }

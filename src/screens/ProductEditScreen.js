@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import FormContainer from '../components/FormContainer'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Col, Form, Row } from 'react-bootstrap'
 import Message from '../components/Message'
 import { useDispatch, useSelector } from 'react-redux'
-import { createProduct, productDetails } from '../action/productAction'
+import { createProduct, productDetails, updateProduct } from '../action/productAction'
 // import uploadImageApi from '../api/uploadImageAPI'
 import axios from 'axios'
 import Loader from '../components/Loader'
@@ -16,6 +16,7 @@ const ProductEditScreen = () => {
   const history = useNavigate()
 
   const {loading,error,product}=useSelector(state=>state.productDetails)
+  const {loading:updateLoading,error:updateError,success}=useSelector(state=>state.productUpdate)
 
   const[Name,setName] = useState("Sample Product")
   const[Price,setPrice] = useState(0)
@@ -29,7 +30,6 @@ const ProductEditScreen = () => {
 
   const[isImageUploading,setIsImageUploading] = useState()
   const formData = new FormData()
-  // eslint-disable-next-line
   const [errorMsg,setErrorMsg] = useState(false)
   const [ProductUploadErrorMsg,setProductUploadErrorMsg]=useState("")
 
@@ -74,21 +74,33 @@ const ProductEditScreen = () => {
         setProductUploadErrorMsg("No Changes were made!!!")
         return
       }
-    dispatch(createProduct(Name,Price,Category,Brand,CountInStock,Description,Image,MRP))
+      if(!(file.name && file.type)) {
+        setErrorMsg("Please Choose File")
+        return
+      }
+      if(productId){
+        dispatch(updateProduct(productId,Name,Price,Category,Brand,CountInStock,Description,Image,MRP))
+      }else{
+        dispatch(createProduct(Name,Price,Category,Brand,CountInStock,Description,Image,MRP))
+      }
   }
 
   useEffect(()=>{
     if(productId){
       dispatch(productDetails(productId))
+      setName(product.name)
+      setCategory(product.category)
+      setBrand(product.brand)
+      setCountInStock(product.countInStock)
+      setDescription(product.description)
+      setImage(product.image)
+      setPrice(product.price)
     }
-    setName(product.name)
-    setCategory(product.category)
-    setBrand(product.brand)
-    setCountInStock(product.countInStock)
-    setDescription(product.description)
-    setImage(product.image)
-    setPrice(product.price)
-  },[productId,dispatch,product.name,product.category,product.price,product.Description])
+    if(success){
+      history("/")
+    }
+   
+  },[productId,dispatch,product.name,product.category,product.price,product.Description,success,history])
 
   return (
     <>
@@ -96,7 +108,11 @@ const ProductEditScreen = () => {
         Go Back
       </Link>
       <FormContainer>
+        {error && <Message>Somnething Went Wrong!</Message>}
+        {updateError && <Message variant="success">{updateError}</Message>}
+        {success && <Message variant="success">Product Updated SuccessFully</Message>}
         {ProductUploadErrorMsg && <Message variant="success">{ProductUploadErrorMsg}</Message>}
+        {updateLoading && <Loader/>}
         <h1>Create Product</h1>
         {loading && <Loader/>}
         <Form className='py-4' onSubmit={submitHandler}>
@@ -131,8 +147,14 @@ const ProductEditScreen = () => {
           <Form.Group className="my-2"controlId='productImage'>
             <Form.Label>Product Image</Form.Label>
             <Form.Control placeholder='Enter Product Description' type="text" value={Image} onChange={(e)=>console.log()} disabled/>
-            <Form.Control type="file"  onChange={(e)=>{setFile(e.target.files[0])}} />
-            <Button type="button" variant='primary' onClick={uploadImageHandler}>Upload</Button>
+            <Row>
+              <Col xs={9}>
+                <Form.Control type="file" className='my-2' onChange={(e)=>{setFile(e.target.files[0])}} />  
+              </Col>
+              <Col>
+                <Button type="button" variant='primary' className='my-2' onClick={uploadImageHandler}>Upload</Button>
+              </Col>
+            </Row>
               {errorMsg && <Message variant="danger">{errorMsg}</Message>}
           </Form.Group>
           <Button type="submit" varinat="primary" className='my-2'>

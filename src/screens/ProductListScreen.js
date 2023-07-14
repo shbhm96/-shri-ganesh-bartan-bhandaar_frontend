@@ -9,7 +9,7 @@ import { deleteProduct, listProducts } from '../action/productAction';
 import { PRODOCT_CREATE_RESET } from '../constants/productConstants';
 import { RupeeSign } from '../assets/Symbols';
 
-const ProductiListScreen = ({getState}) => {
+const ProductiListScreen = () => {
     const dispatch = useDispatch()
     const history = useNavigate()
 
@@ -18,7 +18,7 @@ const ProductiListScreen = ({getState}) => {
     const {loading:loadingDelete, error:errorDelete,success:successDelete} = useSelector(state=>state.productDelete)
     const {loading:loadingCreate, error:errorCreate,success:successCreate,product:createdProduct} = useSelector(state=>state.productCreate)
     
-
+console.log(successDelete)
     useEffect(()=>{
         dispatch({type:PRODOCT_CREATE_RESET})
 
@@ -30,7 +30,7 @@ const ProductiListScreen = ({getState}) => {
         }else{
             dispatch(listProducts())
         }
-    },[dispatch,history,userInfo,successCreate,createdProduct,successDelete,])
+    },[dispatch,history,userInfo,successCreate,createdProduct,successDelete])
 
     const deleteHandler = (id) =>{
         if(window.confirm("Are you sure")){
@@ -56,6 +56,7 @@ const ProductiListScreen = ({getState}) => {
 
         </Row>
         {loadingDelete && <Loader/>}
+        {successDelete && <Message variant="success">Product Deleted!!!</Message>}
         {errorDelete && <Message variant="danger">{errorDelete}</Message>}
         {loadingCreate && <Loader/>}
         {errorCreate && <Message variant="danger">{errorCreate}</Message>}

@@ -14,7 +14,10 @@ import { PRODOCT_DETAILS_FAIL,
     PRODOCT_CREATE_RESET,
     PRODUCT_IMAGE_UPLOAD_REQUEST,
     PRODUCT_IMAGE_UPLOAD_SUCCESS,
-    PRODUCT_IMAGE_UPLOAD_FAIL
+    PRODUCT_IMAGE_UPLOAD_FAIL,
+    PRODUCT_UPDATE_REQUEST,
+    PRODUCT_UPDATE_SUCCESS,
+    PRODUCT_UPDATE_FAIL
  } 
 from "../constants/productConstants"
 
@@ -47,13 +50,24 @@ switch (action.type){
         return state
 }
 }
-
+export const productUpdateReducer = (state={},action)=>{
+    switch(action.type){
+        case PRODUCT_UPDATE_REQUEST:
+            return{loading:true}
+        case PRODUCT_UPDATE_SUCCESS:
+            return{loading:false,success:action.payload}
+        case PRODUCT_UPDATE_FAIL:
+            return{loading:false,error:action.payload}
+        default:
+            return state
+    }
+}
 export const productDeleteReducer = (state={},action)=>{
 switch (action.type){
     case PRODOCT_DELETE_REQUEST:
         return {loading : true}
     case PRODOCT_DELETE_SUCCESS:
-        return {loading:false,products:action.payload}
+        return {loading:false,success:action.payload}
     case PRODOCT_DELETE_FAIL:
         return {loading:false,error:action.payload}
     default:
