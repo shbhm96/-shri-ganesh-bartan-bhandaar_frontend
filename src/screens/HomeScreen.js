@@ -12,6 +12,8 @@ const Homescreen = () => {
   const dispatch = useDispatch()
   const history = useNavigate()
   const {loading,products,error} = useSelector(state=>state.productList)
+
+  {console.log("Hey",loading)}
  
   useEffect(()=>{
       dispatch(listProducts())
@@ -21,6 +23,7 @@ const Homescreen = () => {
   <>
 
   <h1>Latest Product</h1>
+  
   {loading ? (<Loader/>) : error ? (<Message variant="danger">{error}</Message>):(
     <Row>      
       {products && products.map((product)=>{
