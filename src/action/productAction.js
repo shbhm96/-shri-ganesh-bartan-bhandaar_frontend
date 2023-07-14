@@ -21,7 +21,8 @@ import backendApi from '../api/backend'
 const listProducts = () =>async(dispatch)=>{
 try{
     dispatch({type:PRODOCT_LIST_REQUEST})
-    const {data} = await backendApi.get("/products")        
+    const {data} = await backendApi.get("/products")
+    console.log(data.reverse())   
     dispatch({
         type:PRODOCT_LIST_SUCCESS,
         payload: data
