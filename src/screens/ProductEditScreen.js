@@ -10,6 +10,7 @@ import axios from 'axios'
 import Loader from '../components/Loader'
 
 const ProductEditScreen = () => {
+  console.log("Heklko")
   const params = useParams()
   const productId = params.id
   const dispatch = useDispatch()
@@ -17,16 +18,17 @@ const ProductEditScreen = () => {
 
   const {loading,error,product}=useSelector(state=>state.productDetails)
   const {loading:updateLoading,error:updateError,success}=useSelector(state=>state.productUpdate)
+  const {success:createSuccess} = useSelector(state=>state.productCreate)
 
   const[Name,setName] = useState("Sample Product")
-  const[Price,setPrice] = useState(0)
+  const[Price,setPrice] = useState()
   const[Category,setCategory] = useState("sample")
   const[Brand,setBrand] = useState("sample")
   const[CountInStock,setCountInStock] = useState(0)
   const[Description,setDescription] = useState("This is a sample description.")
   const[Image,setImage] = useState("/images/sample.jpg")
   const[file,setFile]= useState("")
-  const [MRP,setMRP]=useState(0)
+  const [MRP,setMRP]=useState()
 
   const[isImageUploading,setIsImageUploading] = useState()
   const formData = new FormData()
@@ -70,8 +72,16 @@ const ProductEditScreen = () => {
     e.preventDefault()
     if(product.name === Name && product.description ===Description && product.price === Price
       && product.image === Image && product.category === Category && product.brand === Brand 
-      && product.countInStock === CountInStock){
+      && product.countInStock === CountInStock && product.MRP === MRP){
         setProductUploadErrorMsg("No Changes were made!!!")
+        return
+      }
+      if(Price===0 || MRP === 0){
+        setErrorMsg("Price / MRP cannot be Zero!!!")
+        return
+      }
+      if(Price>MRP){
+        setErrorMsg("Price Cannot be more than MRP!!!")
         return
       }
       if(!(file.name && file.type)) {
@@ -96,11 +106,24 @@ const ProductEditScreen = () => {
       setImage(product.image)
       setPrice(product.price)
     }
+    if(createSuccess){
+      history("/")
+    }
     if(success){
       history("/")
     }
    
-  },[productId,dispatch,product.name,product.category,product.price,product.Description,success,history])
+  },[
+    productId,
+    dispatch,
+    createSuccess,
+    product.name,
+    product.category,
+    product.price,
+    product.Description,
+    success,
+    history
+  ])
 
   return (
     <>

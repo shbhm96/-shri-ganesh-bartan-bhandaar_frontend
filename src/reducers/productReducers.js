@@ -59,7 +59,7 @@ export const productUpdateReducer = (state={},action)=>{
         case PRODUCT_UPDATE_FAIL:
             return{loading:false,error:action.payload}
         default:
-            return state
+            return {}
     }
 }
 export const productDeleteReducer = (state={},action)=>{
@@ -80,7 +80,7 @@ switch (action.type){
     case PRODOCT_CREATE_REQUEST:
         return {loading : true}
     case PRODOCT_CREATE_SUCCESS:
-        return {loading:false,products:action.payload}
+        return {loading:false,success:true}
     case PRODOCT_CREATE_FAIL:
         return {loading:false,error:action.payload}
     case PRODOCT_CREATE_RESET:

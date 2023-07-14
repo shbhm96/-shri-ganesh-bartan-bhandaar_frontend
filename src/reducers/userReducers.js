@@ -78,7 +78,7 @@ export const userUpdateProfileReducer = (state={},action)=>{
         case USER_UPDATE_PROFILE_FAIL:
             return {loading:false,error:action.payload}    
         default:
-            return state
+            return {}
     }
 }
 
@@ -122,6 +122,6 @@ export const userUpdateReducer = (state={},action)=>{
         case USER_UPDATE_RESET:
             return {user:{}}
         default:
-            return state
+            return {}
     }
 }

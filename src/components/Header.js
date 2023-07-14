@@ -1,5 +1,5 @@
 import React, {  } from 'react'
-import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap'
+import { Alert, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap'
 import {  useDispatch, useSelector } from 'react-redux'
 import {  useNavigate } from 'react-router-dom'
 import { logoutUser } from '../action/userAction'
@@ -85,6 +85,11 @@ const Header = () => {
         </Navbar.Collapse>
       </Container> 
       </Navbar>
+      {userInfo && userInfo.isAdmin && <Alert variant='success'>        
+          <p>(Add card displaying Company Name<br/>
+          On MouseOver Card Rotate and show links for company product category links<br/>
+          Clicking on link show the list of that company category product)</p>
+      </Alert>}
     </header>
   )
 }
