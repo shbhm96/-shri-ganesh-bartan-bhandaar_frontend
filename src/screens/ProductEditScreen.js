@@ -80,7 +80,7 @@ const ProductEditScreen = () => {
         setErrorMsg("Price / MRP cannot be Zero!!!")
         return
       }
-      if(Price>MRP){
+      if(Number(Price)>Number(MRP)){
         setErrorMsg("Price Cannot be more than MRP!!!")
         return
       }

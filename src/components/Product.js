@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { RupeeSign } from '../assets/Symbols'
 
 const Product = ({product}) => {
+  product.numReviews = Math.ceil(Math.random()*10)
   
   return (
      <Card className='my-3 p-3 rounded'>
